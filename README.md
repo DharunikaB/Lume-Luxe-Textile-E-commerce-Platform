@@ -1,11 +1,9 @@
-# Lume-Luxe-Textile-E-commerce-Platform
-Lume &amp; Luxe is a strategic e-commerce solution designed to streamline the consumer funnel for the textile industry. Built with a Flask (Python) modular backend and JWT-secured authentication, the platform focuses on solving the "Personalization Gap" in fashion through a unique Fabric Customization Engine.
-
 # Lume & Luxe – Textile E-commerce Platform
 
 ## Overview
 
-A full-stack e-commerce web application designed to simulate a real-world online fashion shopping experience with a focus on personalization and secure transactions.
+Lume &amp; Luxe is a strategic e-commerce solution designed to streamline the consumer funnel for the textile industry. Built with a Flask (Python) modular backend and JWT-secured authentication, the platform focuses on solving the "Personalization Gap" in fashion through a unique Fabric Customization Engine.
+
 
 ## Key Features
 
