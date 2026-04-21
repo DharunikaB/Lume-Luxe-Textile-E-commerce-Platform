@@ -27,7 +27,7 @@ bcrypt = Bcrypt(app)
 app.secret_key = SECRET_KEY
 
 # ✅ Database Config
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Harsu#world13@localhost/lume_luxe' 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:XXXXXXXXX@localhost/lume_luxe' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -38,8 +38,8 @@ jwt = JWTManager(app)
 CORS(app)
 
 # ✅ Razorpay Config
-app.config["RAZORPAY_KEY"] = "rzp_test_UJOyiCZ1FFC00z"
-app.config["RAZORPAY_SECRET"] = "x3fieBJG2VVKs0FSwcpAeosh" 
+app.config["RAZORPAY_KEY"] = "YOUR_KEY_HERE"
+app.config["RAZORPAY_SECRET"] = "YOUR_SECRET_KEY_HERE" 
 razorpay_client = razorpay.Client(auth=(app.config["RAZORPAY_KEY"], app.config["RAZORPAY_SECRET"]))
 
 # ✅ Blueprints
