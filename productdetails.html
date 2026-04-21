@@ -174,7 +174,7 @@
     document.getElementById('pay-now-btn').onclick = function(e) {
       e.preventDefault();
   
-      const token = localStorage.getItem('token'); // ✅ Add this line brooo 💥
+      const token = localStorage.getItem('token'); 
   
       if (!token) {
         alert("User not logged in. Please login first.");
@@ -196,7 +196,7 @@
       .then(data => {
         if (data.order_id) {
           var options = {
-            "key": "rzp_test_UJOyiCZ1FFC00z", // 🔑 Use your real key here
+            "key": "XXXXXXXXXXXXXX", // 🔑 Use your real key here
             "amount": data.amount,
             "currency": "INR",
             "order_id": data.order_id,
@@ -224,8 +224,8 @@
         }
       })
       .catch(err => {
-        console.error("Fetch error 💥:", err);
-        alert("Something went wrong, bro 😢");
+        console.error("Fetch error :", err);
+        alert("Something went wrong1!!!");
       });
     }
   </script>
