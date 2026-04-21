@@ -5,15 +5,15 @@ import uuid
 # Initialize db instance
 db = SQLAlchemy()
 
-# ✅ User model
+# User model
 class User(db.Model):
-    __tablename__ = 'users'  # 💥 Important fix
+    __tablename__ = 'users'  
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False) 
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
-# ✅ Product model
+# Product model
 class Product(db.Model):
     __tablename__ = 'products'  # Optional: makes it cleaner
     id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +22,7 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
 
-# ✅ Cart model
+# Cart model
 class Cart(db.Model):
     __tablename__ = 'carts'
     id = db.Column(db.Integer, primary_key=True)
@@ -33,7 +33,7 @@ class Cart(db.Model):
     user = db.relationship('User', backref=db.backref('cart_items', lazy=True))
     product = db.relationship('Product', backref=db.backref('cart_items', lazy=True))
 
-# ✅ Order model
+# Order model
 class Order(db.Model):
     __tablename__ = 'orders'
     id = db.Column(db.Integer, primary_key=True)
@@ -60,7 +60,7 @@ class Tracking(db.Model):
     status = db.Column(db.String(50), nullable=False)
     order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))  # link to orders if needed
 
-# ✅ Payment model
+# Payment model
 class Payment(db.Model):
     __tablename__ = 'payments'
     id = db.Column(db.Integer, primary_key=True)
