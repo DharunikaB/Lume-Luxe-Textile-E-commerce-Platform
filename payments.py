@@ -16,7 +16,7 @@ def get_razorpay_client():
         current_app.config["RAZORPAY_SECRET"]
     ))
 
-# ✅ 1. Create Razorpay Order
+#  1. Create Razorpay Order
 @payments_bp.route('/create_order', methods=['POST'])
 @jwt_required()
 def create_order():
@@ -68,7 +68,7 @@ def create_order():
     })
 
 
-# ✅ 2. Verify Razorpay Signature
+# 2. Verify Razorpay Signature
 @payments_bp.route("/verify_payment", methods=["POST"])
 def verify_payment():
     try:
@@ -95,7 +95,7 @@ def verify_payment():
     except Exception as e:
         return jsonify({"error": f"Payment verification failed: {str(e)}"}), 500
 
-# ✅ 3. Confirm Order and Generate Tracking ID
+#  3. Confirm Order and Generate Tracking ID
 def generate_tracking_id():
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
 
