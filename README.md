@@ -25,7 +25,7 @@ Lume &amp; Luxe is a strategic e-commerce solution designed to streamline the co
 * User Engagement (customization usage)
 * Cart Abandonment Rate
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * Backend: Flask, SQLAlchemy
 * Database: MySQL
