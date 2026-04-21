@@ -33,6 +33,12 @@ Lume &amp; Luxe is a strategic e-commerce solution designed to streamline the co
 * Auth: JWT
 * Payments: Razorpay (Testmode)
 
+* ## Environment Setup
+
+Sensitive credentials (API keys) are not stored in the repository.
+Use `.env.example` as a reference to configure your local environment variables.
+
+
 ## ⚠️ Note
 
 * Payment works in test mode
