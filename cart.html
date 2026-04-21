@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>😺 Lulu & Momo's Cart</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: url('https://i.imgur.com/nMN8hQb.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        h1::before {
+            content: "🐾 ";
+        }
+
+        .cart-item {
+            background: #fef9ef;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .cart-item h3 {
+            margin: 0 0 10px;
+        }
+
+        .cart-item p {
+            margin: 4px 0;
+        }
+
+        .cart-item button {
+            margin-top: 10px;
+            background: #ff7675;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .cart-item button:hover {
+            background: #d63031;
+        }
+
+        #pay-now-btn {
+            display: none;
+            background: #74b9ff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #pay-now-btn:hover {
+            background: #0984e3;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        a {
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Cart 😸</h1>
+        <div id="cart-items">
+            <p>Loading your fluffy cart...</p>
+        </div>
+        <div class="total-section">
+            <p><strong>Total:</strong> ₹<span id="total-price">0</span></p>
+        </div>
+        <center><button id="pay-now-btn">Pay Now 🐱</button></center>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                alert("Please login first!");
+                window.location.href = "/login.html";
+                return;
+            }
+
+            fetch('/cart/view', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const cartItemsContainer = document.getElementById('cart-items');
+                const totalPriceEl = document.getElementById('total-price');
+                const payNowBtn = document.getElementById('pay-now-btn');
+
+                if (!data.cart || data.cart.length === 0) {
+                    cartItemsContainer.innerHTML = `<p>Your cart is empty. <a href="/">Start shopping now with Lume and Luxe 🐾</a></p>`;
+                    return;
+                }
+
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+
+                data.cart.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `
+                        <h3>🐾 ${item.name}</h3>
+                        <p>Price: ₹${item.price}</p>
+                        <p>Quantity: ${item.quantity}</p>
+                        <button onclick="removeFromCart(${item.product_id})">Remove</button>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                    total += item.price * item.quantity;
+                });
+
+                totalPriceEl.textContent = total;
+                payNowBtn.style.display = 'inline-block';
+
+                payNowBtn.onclick = function () {
+                    fetch("/payments/create_order", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ amount: total * 100 })
+                    })
+                    .then(res => res.json())
+                    .then(order => {
+                        if (order.order_id) {
+                            const options = {
+                                key: order.razorpay_key,
+                                amount: order.amount,
+                                currency: order.currency,
+                                name: "Lulu & Luxe",
+                                description: "Secure Payment",
+                                order_id: order.order_id,
+                                handler: function (response) {
+                                    fetch('/verify_payment', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                            razorpay_order_id: response.razorpay_order_id,
+                                            razorpay_payment_id: response.razorpay_payment_id,
+                                            razorpay_signature: response.razorpay_signature
+                                        })
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data.message) {
+                                            fetch('/payment-success', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'Authorization': `Bearer ${token}`
+                                                },
+                                                body: JSON.stringify({ order_id: order.order_id })
+                                            })
+                                            .then(res => res.json())
+                                            .then(result => {
+                                                alert(`✅ Payment Success! Tracking ID: ${result.tracking_id}`);
+                                                window.location.href = '/order-success';
+                                            });
+                                        } else {
+                                            alert("❌ Payment verification failed.");
+                                        }
+                                    });
+                                },
+                                theme: {
+                                    color: "#fab1a0"
+                                }
+                            };
+
+                            const rzp = new Razorpay(options);
+                            rzp.open();
+                        } else {
+                            alert("Error creating order. Please try again.");
+                        }
+                    })
+                    .catch(error => {
+                        alert("Payment initiation failed.");
+                        console.error(error);
+                    });
+                };
+            })
+            .catch(err => {
+                console.error("Error loading cart:", err);
+                alert("Something went wrong while loading your cart.");
+            });
+        });
+
+        function removeFromCart(productId) {
+            const token = localStorage.getItem('token');
+            fetch('/cart/remove', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message);
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+

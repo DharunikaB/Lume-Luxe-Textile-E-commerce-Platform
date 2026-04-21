@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complete Payment</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 60px;
+    }
+    h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    #pay-btn {
+      background-color: white;
+      color: black;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Complete Your Payment</h2>
+  <p>You're about to pay ₹{{ product.price * (order.amount / (product.price * 100)) }} for <strong>{{ product.name }}</strong></p>
+
+  <button id="pay-btn">Pay ₹{{ product.price * (order.amount / (product.price * 100)) }}</button>
+
+  <script>
+    const options = {
+      key: "rzp_test_UJOyiCZ1FFC00z", // Replace with your Razorpay Key ID (test or live)
+      amount: "{{ order.amount }}", // amount in paise
+      currency: "INR",
+      name: "Lume and Luxe",
+      description: "{{ product.name }}",
+      image: "{{ url_for('static', filename='logo.png') }}",  // optional
+      order_id: "{{ order.id }}",
+      handler: function (response){
+          alert("Payment successful! Razorpay ID: " + response.razorpay_payment_id);
+          window.location.href = "/order_success"; // redirect after success
+      },
+      prefill: {
+          name: "Your Customer",
+          email: "customer@example.com",
+          contact: "9999999999"
+      },
+      theme: {
+          color: "#000000"
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    document.getElementById('pay-btn').onclick = function(e){
+      rzp.open();
+      e.preventDefault();
+    }
+  </script>
+
+</body>
+</html>

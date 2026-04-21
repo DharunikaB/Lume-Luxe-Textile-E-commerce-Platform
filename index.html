@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lume & Luxe</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="logo">Lume & Luxe</div>
+    <ul class="nav-links">
+      <li class="nav-item">
+        <a href="#">Men</a>
+        <ul class="dropdown">
+          <li><a href="/men/tshirts">T-Shirts</a></li>
+          <li><a href="/men/pants">Pants</a></li>
+          <li><a href="/men/formal">Formal Shirts</a></li>
+          <li class="submenu">
+            <a href="#">Accessories ▸</a>
+            <ul class="dropdown right">
+              <li><a href="/men/accessories/watches">Watches</a></li>
+              <li><a href="/men/accessories/wallets">Wallets</a></li>
+              <li><a href="/men/accessories/belts">Belts</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a href="#">Women</a>
+        <ul class="dropdown">
+          <li><a href="/women/salwar">Salwar</a></li>
+          <li><a href="/women/jeans&T-shirts">Jeans&T-shirts</a></li>
+          <li><a href="/women/tshirts">T-Shirts</a></li>
+          <li class="submenu">
+            <a href="#">Accessories ▸</a>
+            <ul class="dropdown right">
+              <li><a href="/women/accessories/bags">Bags</a></li>
+              <li><a href="/women/accessories/beauty">Beauty Products</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a href="#">Kids</a>
+        <ul class="dropdown">
+          <li><a href="/kids/dress">Dress</a></li>
+          <li><a href="/kids/tshirts">T-Shirts</a></li>
+          <li><a href="/kids/jeans">Jeans</a></li>
+          
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a href="#">Footwear</a>
+        <ul class="dropdown">
+          <li><a href="/footwear/women">Women</a></li>
+          <li><a href="/footwear/men">Men</a></li>
+          <li><a href="/footwear/kids">Kids</a></li>
+        </ul>
+      <li>
+
+    <!-- Icons -->
+    <div class="navbar-right">
+      <a href="{{ url_for('cart_page') }}">🛒</a> 
+      <a href="{{ url_for('signup_page') }}">👤</a>
+      <a href="/users/login">Login</a>
+    </div>
+  </header>
+
+  <!-- Hero Section with Theme Image -->
+  <section class="hero" style="background-image: url('{{ url_for('static', filename='images/pic1.jpg') }}');">
+    <div class="hero-overlay">
+      <h1>Discover Premium Fashion</h1>
+      <p>Luxury & Style with Lume & Luxe</p>
+      <a href="/shop" class="btn">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Multiple Theme Images -->
+  <section class="theme-image" style="background-image: url('{{ url_for('static', filename='images/theme1.jpg') }}');"></section>
+  <section class="theme-image" style="background-image: url('{{ url_for('static', filename='images/theme2.jpg') }}');"></section>
+  <section class="theme-image" style="background-image: url('{{ url_for('static', filename='images/theme3.jpg') }}');"></section>
+
+  <!-- Men's Product Category Section -->
+  <section class="product-category">
+    <h2>Men's Collection</h2>
+
+    <!-- T-Shirts -->
+    <h3>T-Shirts</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=1) }}">
+          <img src="{{ url_for('static', filename='images/products/tshirt1.jpg') }}" alt="T-Shirt 1">
+        </a>
+        <h3>Casual T-Shirt</h3>
+        <p>₹599</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=2) }}">
+          <img src="{{ url_for('static', filename='images/products/tshirt2.jpg') }}" alt="T-Shirt 2">
+        </a>
+        <h3>Printed T-Shirt</h3>
+        <p>₹699</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=3) }}">
+          <img src="{{ url_for('static', filename='images/products/tshirt3.jpg') }}" alt="T-Shirt 3">
+        </a>
+        <h3>Solid T-Shirt</h3>
+        <p>₹799</p>
+      </div>
+    </div>
+
+    <!-- Pants -->
+    <h3>Pants & Trousers</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=4) }}">
+          <img src="{{ url_for('static', filename='images/products/pants1.jpg') }}" alt="Pant 1">
+        <a>
+        <h3>Formal Pants</h3>
+        <p>₹999</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=5) }}">
+         <img src="{{ url_for('static', filename='images/products/pants2.jpg') }}" alt="Pant 2">
+        </a>
+        <h3>Black Pants</h3>
+        <p>₹1199</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=6) }}">
+          <img src="{{ url_for('static', filename='images/products/pants3.jpg') }}" alt="Pant 3">
+        <a>
+        <h3>Chinos</h3>
+        <p>₹899</p>
+      </div>
+    </div>
+
+    <!-- Formal Shirts -->
+    <h3>Formal Shirts</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=7) }}">
+          <img src="{{ url_for('static', filename='images/products/formalshirt1.jpg') }}" alt="Shirt 1">
+        <a>
+        <h3>Printed Shirt</h3>
+        <p>₹899</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=8) }}">
+          <img src="{{ url_for('static', filename='images/products/formalshirt2.jpg') }}" alt="Shirt 2">
+        </a>
+        <h3>Shirt</h3>
+        <p>₹1099</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=9) }}">
+          <img src="{{ url_for('static', filename='images/products/formalshirt3.jpg') }}" alt="Shirt 3">
+        <a>
+        <h3>Purple Shirt</h3>
+        <p>₹999</p>
+      </div>
+    </div>
+
+    <!-- Wallets -->
+    <h3>Wallets</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=10) }}">
+          <img src="{{ url_for('static', filename='images/products/wallet1.jpg') }}" alt="Wallet 1">
+        <a>
+        <h3>Brown Premium</h3>
+        <p>₹1399</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=11) }}">
+          <img src="{{ url_for('static', filename='images/products/wallet2.jpg') }}" alt="Wallet 2">
+        <a>
+        <h3>Olive Green</h3>
+        <p>₹1559</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=12) }}">
+          <img src="{{ url_for('static', filename='images/products/wallet3.jpg') }}" alt="Wallet 3">
+        <a>
+        <h3>Rarerabbit</h3>
+        <p>₹4999</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Women's Product Category Section -->
+<section class="product-category">
+    <h2>Women's Collection</h2>
+  
+    <!-- Salwar -->
+    <h3>Salwar</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=13) }}">
+          <img src="{{ url_for('static', filename='images/products/womensalwar1.jpg') }}" alt="Salwar 1">
+        <a>
+        <h3>Embroidered Salwar</h3>
+        <p>₹1000</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=14) }}">
+          <img src="{{ url_for('static', filename='images/products/womensalwar2.jpg') }}" alt="Salwar 2">
+        <a>
+        <h3>Printed Salwar</h3>
+        <p>₹1650</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=15) }}">
+          <img src="{{ url_for('static', filename='images/products/womensalwar3.jpg') }}" alt="Salwar 3">
+        <a>
+        <h3>Salwar</h3>
+        <p>₹1700</p>
+      </div>
+    </div>
+  
+    <!-- Jeans & T-Shirts -->
+    <h3>Jeans & T-Shirts</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=16) }}">
+          <img src="{{ url_for('static', filename='images/products/woments1.jpg') }}" alt="Combo 1 1">
+        <a>
+        <h3>High-Waist Jeans</h3>
+        <p>₹800</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=17) }}">
+          <img src="{{ url_for('static', filename='images/products/woments2.jpg') }}" alt="Combo 2">
+        </a>
+        <h3>Graphic Tee</h3>
+        <p>₹1500</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=18) }}">
+          <img src="{{ url_for('static', filename='images/products/woments3.jpg') }}" alt="Combo 3">
+        <a>
+        <h3>Jean & T-Shir</h3>
+        <p>₹1700</p>
+      </div>
+    </div>
+  
+    <!-- Jumpsuits -->
+    <h3>Jumpsuits</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=19) }}">
+          <img src="{{ url_for('static', filename='images/products/womensuits1.jpg') }}" alt="Jumpsuit 1">
+        <a>
+        <h3>Jumpsuit</h3>
+        <p>₹1800</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=20) }}">
+          <img src="{{ url_for('static', filename='images/products/womensuits2.jpg') }}" alt="Jumpsuit 2">
+        <a>
+        <h3>Printed Jumpsuit</h3>
+        <p>₹1500</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=21) }}">
+          <img src="{{ url_for('static', filename='images/products/womensuits3.jpg') }}" alt="Jumpsuit 3">
+        <a>
+        <h3>Formal Jumpsuit</h3>
+        <p>₹1100</p>
+      </div>
+    </div>
+  
+    <!-- Accessories -->
+    <h3>Accessories - Beauty Products</h3>
+  
+    <!-- Lipstick -->
+    <h4>Lipstick</h4>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=22) }}">
+          <img src="{{ url_for('static', filename='images/products/womenlp1.jpg') }}" alt="Lipstick 1">
+        <a>
+        <h3>Matte Lipstick</h3>
+        <p>₹399</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=23) }}">
+          <img src="{{ url_for('static', filename='images/products/womenlp2.jpg') }}" alt="Lipstick 2">
+        <a>
+        <h3>Glossy Lipstick</h3>
+        <p>₹349</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=24) }}">
+          <img src="{{ url_for('static', filename='images/products/womenlp3.jpg') }}" alt="Lipstick 3">
+        <a>
+        <h3>Nude Shade</h3>
+        <p>₹449</p>
+      </div>
+    </div>
+
+     <!-- Bag -->
+     <h4>Bags</h4>
+     <div class="product-grid">
+       <div class="product">
+        <a href="{{ url_for('product_page', product_id=25) }}">
+          <img src="{{ url_for('static', filename='images/products/womenbag1.jpg') }}" alt="WomenBag 1">
+        <a>
+        <h3>Pink</h3>
+         <p>₹1200</p>
+       </div>
+       <div class="product">
+        <a href="{{ url_for('product_page', product_id=26) }}">
+          <img src="{{ url_for('static', filename='images/products/womenbag2.jpg') }}" alt="WomenBag 2">
+        <a>
+         <h3>Black</h3>
+         <p>₹1500</p>
+       </div>
+       <div class="product">
+        <a href="{{ url_for('product_page', product_id=27) }}">
+          <img src="{{ url_for('static', filename='images/products/womenbag3.jpg') }}" alt="WomenBag 3">
+        <a>
+         <h3>Pearl White</h3>
+         <p>₹1700</p>
+       </div>
+     </div>
+  
+    <!-- Face Masks -->
+    <h4>Face Masks</h4>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=28) }}">
+          <img src="{{ url_for('static', filename='images/products/Facemask1.jpg') }}" alt="Face Mask 1">
+        <a>
+        <h3>Strawberry Mask</h3>
+        <p>₹299</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=29) }}">
+          <img src="{{ url_for('static', filename='images/products/facemask2.jpg') }}" alt="Face Mask 2">
+        <a>
+        <h3>Cucumber Mask</h3>
+        <p>₹349</p>
+      </div>
+    </div>
+  </section>
+  <!-- Kids Product Category Section -->
+<section class="product-category">
+    <h2>Kids Collection</h2>
+  
+    <!-- Dress -->
+    <h3>Dresses</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=30) }}">
+          <img src="{{ url_for('static', filename='images/products/kidsdress1.jpg') }}" alt="Dress 1">
+        <a>
+        <h3>Frock</h3>
+        <p>₹799</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=31) }}">
+          <img src="{{ url_for('static', filename='images/products/kidsdress3.jpg') }}" alt="Dress 2">
+        <a>
+        <h3>Party Dress</h3>
+        <p>₹999</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=32) }}">
+          <img src="{{ url_for('static', filename='images/products/kidsdress2.jpg') }}" alt="Dress 3">
+        <a>
+        <h3>Boys Salwar</h3>
+        <p>₹899</p>
+      </div>
+    </div>
+  
+    <!-- Jeans & T-Shirts -->
+    <h3>Jeans & T-Shirts</h3>
+    <div class="product-grid">
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=33) }}">
+          <img src="{{ url_for('static', filename='images/products/kjs1.jpg') }}" alt="T-Shirt 1">
+        <a>
+        <h3>Cartoon Tee</h3>
+        <p>₹499</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=34) }}">
+          <img src="{{ url_for('static', filename='images/products/kjs2.jpg') }}" alt="Jeans 1">
+        <a>
+        <h3>Denim Jeans</h3>
+        <p>₹699</p>
+      </div>
+      <div class="product">
+        <a href="{{ url_for('product_page', product_id=35) }}">
+          <img src="{{ url_for('static', filename='images/products/kjs3.jpg') }}" alt="T-Shirt 2">
+        <a>
+        <h3>Printed T-Shirt</h3>
+        <p>₹549</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footwear Product Category Section -->
+<section class="product-category">
+  <h2>Footwear</h2>
+
+  <!-- Women -->
+  <h3>Women</h3>
+  <div class="product-grid">
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=36) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear1.jpg') }}" alt="Footwear 1">
+      <a>
+      <h3>Red Heels</h3>
+      <p>₹2000</p>
+    </div>
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=37) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear2.jpg') }}" alt="Footwear 2">
+      <a>
+      <h3>Lavendar Flats</h3>
+      <p>₹1250</p>
+    </div>
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=38) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear5.jpg') }}" alt="Footwear 3">
+      <a>
+      <h3>Cozy Casual Slipper</h3>
+      <p>₹1500</p>
+    </div>
+  
+  <!--Men-->
+  <h3>Men</h3>
+  <div class="product-grid">
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=39) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear3.jpg') }}" alt="Footwear 4">
+      <a>
+      <h3>Formal Shoes</h3>
+      <p>₹2100</p>
+    </div>
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=40) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear4.jpg') }}" alt="Footwear 5">
+      <a>
+      <h3>Navy Blue Shoes</h3>
+      <p>₹2500</p>
+    </div>
+
+  <!--Kids-->
+  <h3>Kids</h3>
+  <div class="product-grid">
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=41) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear6.jpg') }}" alt="Footwear 6">
+      <a>
+      <h3>Girl Baby Shoe</h3>
+      <p>₹1000</p>
+    </div>
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=42) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear7.jpg') }}" alt="Footwear 7">
+      <a>
+      <h3>Strawberry Shoe</h3>
+      <p>₹700</p>
+    </div>
+    <div class="product">
+      <a href="{{ url_for('product_page', product_id=43) }}">
+        <img src="{{ url_for('static', filename='images/products/Footwear8.jpg') }}" alt="Footwear 8">
+      <a>
+      <h3>Boy Baby shoe</h3>
+      <p>₹999</p>
+    </div>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <div>
+        <h3>Company</h3>
+        <p>Help</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <p>My Account</p>
+        <p>Order Tracking</p>
+      </div>
+    </div>
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Policies</a>
+      </div>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p>© 2025 Lume & Luxe. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+
+

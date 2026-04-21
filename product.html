@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Lume & Luxe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <h1>Lume & Luxe</h1>  
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="/cart">🛒 Cart</a></li>
+            <li><a href="/login">👤 Account</a></li>
+        </ul>
+    </nav>
+
+    <!-- Product Details Section -->
+    <section class="product-details">
+        <div class="product-container">
+            <!-- Product Image -->
+            <div class="product-image">
+                <img src="{{ url_for('static', filename='images/products/' + product.image) }}" alt="{{ product.name }}">
+            </div>
+
+            <!-- Product Information -->
+            <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p class="price">Price: ₹{{ product.price }}</p>
+
+                <!-- Size Selection -->
+                <label for="size">Size:</label>
+                <select id="size" name="size">
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                    <option value="XXXL">XXXL</option>
+                </select>
+
+                <!-- Fabric Selection -->
+                <label for="fabric">Fabric:</label>
+                <select id="fabric" name="fabric">
+                    <option value="Cotton">Cotton</option>
+                    <option value="Linen">Linen</option>
+                    <option value="Silk">Silk</option>
+                    <option value="Nylon">Nylon</option>
+                    <option value="Polyester">Polyester</option>
+                    <option value="Organza">Organza</option>
+                    <option value="Chiffon">Chiffon</option>
+                </select>
+
+                <!-- Buttons -->
+                <div class="buttons">
+                    <button class="add-to-cart">Add to Cart</button>
+                    <button class="buy-now">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <div>
+                <h3>Company</h3>
+                <p>Help</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>My Account</p>
+                <p>Order Tracking</p>
+            </div>
+        </div>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">Policies</a>
+            </div>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>© 2025 Lume & Luxe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

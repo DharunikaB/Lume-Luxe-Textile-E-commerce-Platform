@@ -1,0 +1,27 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lume & Luxe - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<nav>
+    <div class="logo"><h1>Lume & Luxe</h1></div>
+    <ul class="nav-links">
+        <li><a href="/category/men">Men</a></li>
+        <li><a href="/category/women">Women</a></li>
+        <li><a href="/category/kids">Kids</a></li>
+        <li><a href="/category/accessories">Accessories</a></li>
+        <li><a href="/cart">🛒 Cart</a></li>
+        <li><a href="/login">👤 Account</a></li>
+    </ul>
+</nav>
+
+<section class="theme-banner">
+    <img src="{{ url_for('static', filename='images/theme.jpg') }}" alt="Theme Image" style="width: 100%; height: auto;">
+</section>
+
+</body>
+</html>

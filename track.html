@@ -1,0 +1,47 @@
+<!-- templates/track.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Order</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 300px; width: 100%; }
+        body { text-align: center; font-family: Arial; }
+    </style>
+</head>
+<body>
+    <h2>Track Your Order</h2>
+    <input type="text" id="trackingInput" placeholder="Enter Tracking ID" />
+    <button onclick="track()">Search</button>
+
+    <div id="statusBox">
+        <p><strong>Status:</strong> <span id="statusText"></span></p>
+        <p><strong>Location:</strong> <span id="locationText"></span></p>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map = L.map('map').setView([20.5937, 78.9629], 5); // India center
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>'
+        }).addTo(map);
+
+        function track() {
+            const trackingId = document.getElementById("trackingInput").value;
+            fetch(`/track/${trackingId}`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("statusText").innerText = data.status;
+                    document.getElementById("locationText").innerText = data.location;
+
+                    let marker = L.marker([data.coordinates.lat, data.coordinates.lon]).addTo(map);
+                    map.setView([data.coordinates.lat, data.coordinates.lon], 8);
+                })
+                .catch(err => alert("Tracking ID not found"));
+        }
+    </script>
+</body>
+</html>
