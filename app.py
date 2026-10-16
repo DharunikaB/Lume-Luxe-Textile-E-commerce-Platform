@@ -149,13 +149,20 @@ def admin_dashboard(current_admin):
 def add_to_cart():
     current_user_email = get_jwt_identity()
     data = request.get_json()
-    data = request.get_json()
     user = User.query.filter_by(email=current_user_email).first()
     product_id = data.get('product_id')
     quantity = data.get('quantity', 1)
 
     if not user or not product_id:
         return jsonify({'error': 'Missing data'}), 400
+
+    try:
+        quantity = int(quantity)
+    except ValueError:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
+
+    if quantity <= 0:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
 
     existing_item = Cart.query.filter_by(user_id=user.id, product_id=product_id).first()
     if existing_item:
