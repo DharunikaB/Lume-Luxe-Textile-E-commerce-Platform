@@ -20,11 +20,24 @@ def get_razorpay_client():
 @payments_bp.route('/create_order', methods=['POST'])
 @jwt_required()
 def create_order():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
     print("Incoming data:", data)
 
     product_id = data.get('product_id')
-    quantity = int(data.get('quantity', 1))
+    raw_quantity = data.get('quantity', 1)
+
+    if isinstance(raw_quantity, bool):
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
+
+    if isinstance(raw_quantity, int):
+        quantity = raw_quantity
+    elif isinstance(raw_quantity, str) and raw_quantity.strip().isdigit():
+        quantity = int(raw_quantity.strip())
+    else:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
+
+    if quantity <= 0:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
 
     user_email = get_jwt_identity()
     user = User.query.filter_by(email=user_email).first()

@@ -149,13 +149,20 @@ def admin_dashboard(current_admin):
 def add_to_cart():
     current_user_email = get_jwt_identity()
     data = request.get_json()
-    data = request.get_json()
     user = User.query.filter_by(email=current_user_email).first()
     product_id = data.get('product_id')
     quantity = data.get('quantity', 1)
 
     if not user or not product_id:
         return jsonify({'error': 'Missing data'}), 400
+
+    try:
+        quantity = int(quantity)
+    except ValueError:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
+
+    if quantity <= 0:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
 
     existing_item = Cart.query.filter_by(user_id=user.id, product_id=product_id).first()
     if existing_item:
@@ -230,9 +237,19 @@ def create_order():
     print("Request received!")
     print("Token identity:", get_jwt_identity())
     print("Incoming data:", request.get_json())
-    data = request.json
+    data = request.get_json(silent=True) or {}
     product_id = data.get('product_id')
-    quantity = quantity = int(data.get('quantity', 1))
+    raw_quantity = data.get('quantity', 1)
+
+    if isinstance(raw_quantity, bool) or not isinstance(raw_quantity, (int, str)):
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
+
+    if isinstance(raw_quantity, str) and not raw_quantity.strip().isdigit():
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
+
+    quantity = int(raw_quantity)
+    if quantity <= 0:
+        return jsonify({'error': 'Quantity must be a positive integer'}), 400
 
     user = User.query.filter_by(email=user_email).first()
     product = Product.query.get(product_id)
